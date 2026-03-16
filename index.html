@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 生日快乐！ - 最终挑战</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            color: #aaa;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .terminal {
+            background: #0d0d0d;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid #333;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .prompt {
+            color: #0f0;
+            margin-right: 10px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #444;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1rem;
+            margin: 20px 0;
+            transition: all 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #48dbfb;
+            box-shadow: 0 0 15px rgba(72, 219, 251, 0.3);
+        }
+        
+        button {
+            background: linear-gradient(90deg, #ff6b6b, #ff9ff3);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: block;
+            margin: 30px auto;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .success {
+            background: rgba(46, 204, 113, 0.1);
+            border: 2px solid #2ecc71;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+            animation: fadeIn 1s;
+        }
+        
+        .error {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid #e74c3c;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .gift-box {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .gift-box img {
+            max-width: 200px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .hint {
+            color: #feca57;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎁 生日快乐！ - 最终挑战</h1>
+            <p class="subtitle">你已通过认证，这是最后关卡</p>
+        </div>
+        
+        <div class="terminal">
+            <p><span class="prompt">$</span> 系统检测到：生日礼物协议已激活</p>
+            <p><span class="prompt">$</span> 请输入最终验证密钥...</p>
+        </div>
+        
+        <div class="input-section">
+            <p>将你在邮件中获得的最终密码输入下方：</p>
+            <input type="text" id="password" placeholder="请输入密码..." autocomplete="off">
+            <button onclick="checkPassword()">🚀 验证并解锁礼物</button>
+            
+            <div id="error" class="error">
+                ❌ 密码错误！请重新检查。
+                <p class="hint">提示：密码应该是在解密维吉尼亚密码后得到的那串字符</p>
+            </div>
+        </div>
+        
+        <div id="success" class="hidden">
+            <div class="gift-box">
+                <!-- 这里可以替换成你自己的礼物图片 -->
+                <div style="font-size: 100px; margin: 20px;">🎁✨</div>
+            </div>
+            
+            <div class="success">
+                <h2 style="color: #2ecc71; margin-bottom: 20px;">🎉 恭喜！密码正确！</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 15px;">你已成功解锁生日礼物！</p>
+                
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <h3>🎁 你的专属礼物：</h3>
+                    <p style="margin: 15px 0; font-size: 1.1rem;">
+                        一份《Baba Is You》自制关卡 +<br>
+                        还有即将抵达的可爱的女朋友
+                    </p>
+                </div>
+                
+                <div style="margin-top: 25px; padding: 15px; background: rgba(52, 152, 219, 0.1); border-radius: 8px;">
+                    <h3>📬 领取方式：</h3>
+                    <p>请将下方验证码发给我，我将亲自将礼物送达：</p>
+                    <p style="font-size: 1.3rem; font-weight: bold; color: #feca57; margin: 10px 0;">
+                        BIRTHDAY-SUCCESS-2026
+                    </p>
+                </div>
+                
+                <p style="margin-top: 20px; color: #aaa; font-style: italic;">
+                    "最好的礼物不是物品，而是有人愿意为你花时间准备惊喜的过程。"
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>侦探任务完成时间：<span id="current-time"></span></p>
+            <p style="margin-top: 10px; color: #888;">© 2026 生日特别行动</p>
+        </div>
+    </div>
+    
+    <script>
+        // 设置正确密码 - 替换成你朋友需要输入的正确密码
+        const CORRECT_PASSWORD = "rsloveAlbertforever";
+        
+        // 显示当前时间
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('zh-CN');
+            document.getElementById('current-time').textContent = timeString;
+        }
+        
+        // 检查密码
+        function checkPassword() {
+            const input = document.getElementById('password').value.trim();
+            const errorDiv = document.getElementById('error');
+            const successDiv = document.getElementById('success');
+            
+            if (input === CORRECT_PASSWORD) {
+                // 密码正确
+                successDiv.classList.remove('hidden');
+                errorDiv.style.display = 'none';
+                
+                // 添加庆祝效果
+                celebrate();
+            } else {
+                // 密码错误
+                errorDiv.style.display = 'block';
+                successDiv.classList.add('hidden');
+                
+                // 震动效果
+                document.getElementById('password').style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    document.getElementById('password').style.animation = '';
+                }, 500);
+            }
+        }
+        
+        // 简单的庆祝效果
+        function celebrate() {
+            const container = document.querySelector('.container');
+            
+            // 创建一些漂浮的emoji
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const emoji = document.createElement('div');
+                    emoji.textContent = ['🎉', '🎁', '✨', '🥳', '🎂', '🎈'][Math.floor(Math.random() * 6)];
+                    emoji.style.position = 'fixed';
+                    emoji.style.left = Math.random() * 100 + 'vw';
+                    emoji.style.top = '100vh';
+                    emoji.style.fontSize = '24px';
+                    emoji.style.zIndex = '9999';
+                    emoji.style.pointerEvents = 'none';
+                    document.body.appendChild(emoji);
+                    
+                    // 动画
+                    emoji.animate([
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(-${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ], {
+                        duration: 2000 + Math.random() * 2000,
+                        easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+                    });
+                    
+                    // 移除元素
+                    setTimeout(() => emoji.remove(), 4000);
+                }, i * 100);
+            }
+        }
+        
+        // 按回车键也可以提交
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkPassword();
+            }
+        });
+        
+        // 初始化
+        updateTime();
+        setInterval(updateTime, 1000);
+        
+        // 添加震动动画
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
